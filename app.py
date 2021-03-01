@@ -3,6 +3,7 @@ from boggle import Boggle
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'pqio'
+app.config['TESTING'] = True
 boggle_game = Boggle()
 
 @app.route('/')
@@ -11,15 +12,16 @@ def home():
 
 @app.route('/start-boggle')
 def start_boggle():
-    """Reset game score, save board to session , and render game board."""
+    """Reset game score, update number of plays session, save board to session , and render game board."""
+
     if not session.get("num_of_plays", 0):
         session["num_of_plays"] = 1
     else: 
         session["num_of_plays"] += 1
-    print(session["num_of_plays"])
+
     boggle_game.score = 0
     
-    board_size = request.args.get("custom-size", request.args["board-size"])
+    board_size = request.args.get("custom-size", request.args.get("board-size", 5))
 
     board = boggle_game.make_board(int(board_size))
     session["board"] = board
@@ -37,7 +39,7 @@ def check_word():
 @app.route('/submit-high-score')
 def submit_high_score():
     """Set a high score in session if there wasn't one already.
-    Update high score if current game's score is higher than saved high score.
+    Update high score if current game's score is higher than session high score.
     """
     current_score = boggle_game.score
 
@@ -47,5 +49,7 @@ def submit_high_score():
         if current_score > session["high_score"]:
             session["high_score"] = current_score
 
+    session["high_score"]
+    
     return jsonify(highscore=session["high_score"])
 
