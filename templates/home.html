@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block scripts %}
+<script src="static/home.js"></script>
+{% endblock %}
+
+{% block content %}
+<h4 class="text-center lead fw-5 fs-3 my-3">Instructions:</h3>
+<p class="lead text-center mx-auto col-6">
+The goal of the game is to get the <small class="bg-dark text-light w-100">highest points total</small>.
+To gain points, players create words from a <small class="bg-dark text-light">random assortment of letters</small> in a 5x5 grid. 
+</p>
+<form action="/start-boggle" class="mx-auto col-3" id="start-boggle-form">
+    <select name="board-size" id="board-size-select" class="btn btn-sm btn-dark dropdown-toggle mx-auto d-block my-2" data-bs-toggle="dropdown" aria-expanded="false">
+        <div class="dropdown-menu">
+            <option value="5" class="dropdown-item btn text-light">5x5</option>
+            <option value="10" class="dropdown-item btn text-light">10x10</option>
+            <option value="custom-option" class="dropdown-item btn text-light">Custom</option>
+        </div>
+    </select>
+    <div id="custom-input-div"></div>
+    <button class="btn btn-md btn-outline-dark mx-auto d-block">START!</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block scripts %}
+<script src="static/boggle.js"></script>
+{% endblock %}
+{% block content %}
+<div class="col-2 mx-auto bg-dark mt-2 mb-0">
+    <small class="lead text-center d-block text-light" id="score"></small>
+    <small class="lead text-center d-block text-light" id="high-score"></small>
+    <small class="lead text-center d-block text-light" id="time"></small>
+</div>
+<table class="col-1 mx-auto mt-3 border">
+    {% for words in words_list %}
+    <tr class="">
+        {% for char in words %}
+        <td class="text-center bold">{{char}}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+<p id="response" class="text-center mx-auto lead fs-2"></p>
+<form action="/check-word" method="GET" class="col-3 mx-auto my-3" id="check-word">
+    <fieldset id="word-fieldset">
+        <label for="word-input" class="small my-2">Enter word and press enter or button to submit guess</label>
+            <input type="text" name="word-input" id="word-input" placeholder="Enter Guess Here!" class="form-control" autocomplete="off" required>
+        <button class="btn btn-outline-dark d-block mx-auto my-3" type="submit">Check Word!</button>
+    </fieldset>
+</form>
+{% endblock%}
